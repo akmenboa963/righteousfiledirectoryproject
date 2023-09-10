@@ -1,47 +1,55 @@
-# Step 1: Import the OS module to interact with the operating system.
 import os
 
-# Step 2: Create an empty list to store file details.
-file_details = []
+# Function to get file details in the current directory
+def get_file_details():
+    # Step 1: Get the current working directory
+    current_directory = os.getcwd()
 
-# Step 3: Get the current working directory and list files in it.
-directory = os.getcwd()  # Get the current working directory.
-file_list = os.listdir(directory)  # List files in the current directory.
+    # Step 2: List all files in the current directory
+    file_list = os.listdir(current_directory)
 
-# Step 4: Initialize variables to store file details.
-for file in file_list:
-    file_size = os.path.getsize(file)  # Get the size of the file in bytes.
-    mod_time = os.path.getmtime(file)  # Get the last modification time.
-    creation_time = os.path.getctime(file)  # Get the creation time.
-    file_path = os.path.realpath(file)  # Get the absolute path of the file.
-
-    # Create a dictionary for each file and append it to the file_details list.
-    file_details.append({'name': file, 'size': file_size, 'mod time': mod_time, 'creation time': creation_time, 'path': file_path})
-
-# Step 5: Print file details for better readability.
-for details in file_details:
-    print("File Details:")
-    for key, value in details.items():
-        print(f"{key}: {value}")
-    print("\n")
-
-# Step 6: Wrap the code in a function for reusability.
-def file_details_fn():
-    directory = os.getcwd()
+    # Step 3: Create an empty list to store file details
     file_details = []
 
-    for file in os.listdir(directory):
-        file_size = os.path.getsize(file)
-        mod_time = os.path.getmtime(file)
-        creation_time = os.path.getctime(file)
-        file_path = os.path.realpath(file)
-        file_details.append({'name': file, 'size': file_size, 'mod time': mod_time, 'creation time': creation_time, 'path': file_path})
+    # Step 4: Loop through each file in the directory
+    for file_name in file_list:
+        # Step 5: Get file information
+        file_path = os.path.join(current_directory, file_name)  # Get the full file path
+        file_size = os.path.getsize(file_path)  # Get the file size in bytes
+        mod_time = os.path.getmtime(file_path)  # Get the last modification time
+        creation_time = os.path.getctime(file_path)  # Get the creation time
 
+        # Additional Step: Get file permissions, owner, and type
+        file_stat = os.stat(file_path)
+        permissions = oct(file_stat.st_mode & 0o777)  # Get permissions in octal format
+        owner = file_stat.st_uid
+        file_type = 'File' if os.path.isfile(file_path) else 'Directory'
+
+        # Step 5.8: Create a dictionary for each file and append it to the file_details list
+        file_info = {
+            'name': file_name,
+            'size': file_size,
+            'permissions': permissions,
+            'owner': owner,
+            'mod time': mod_time,
+            'creation time': creation_time,
+            'type': file_type,
+            'path': file_path,
+        }
+        file_details.append(file_info)
+
+    # Step 7: Return the list of file details
+    return file_details
+
+# Step 8: Call the function and print file details
+def main():
+    file_details = get_file_details()
     for details in file_details:
         print("File Details:")
         for key, value in details.items():
             print(f"{key}: {value}")
         print("\n")
 
-# Step 7: Call the function to execute the code.
-file_details_fn()
+if __name__ == "__main__":
+    main()
+
