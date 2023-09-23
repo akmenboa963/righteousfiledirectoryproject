@@ -4,8 +4,8 @@ import boto3
 # Initialize the EC2 client with your AWS access key ID and secret access key
 ec2 = boto3.client(
     'ec2',
-    aws_access_key_id="AKIA36UNSCEHB7C2MUAO",
-    aws_secret_access_key="utW/LjVGI9GFGYsIvx2hd9pbx3s54q5LwdeWk5UC"
+    aws_access_key_id="",
+    aws_secret_access_key=""
 )
 
 # Specify the list of EC2 instance IDs that you want to stop
