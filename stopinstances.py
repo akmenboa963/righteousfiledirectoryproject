@@ -10,9 +10,9 @@ ec2 = boto3.client(
 
 # Specify the list of EC2 instance IDs that you want to stop
 instance_ids = [
-    'i-0786ec37366800c48',
-    'i-08f16cef0d7f789ae',
-    'i-0698085b4407efa85'
+    '',
+    '',
+    ''
 ]
 
 # Use the `stop_instances` method to stop the specified EC2 instances
