@@ -1,0 +1,47 @@
+# Download and install Docker using a script
+curl -fsSL https://get.docker.com/ | sh
+
+# Download Docker installation script
+ sh get-docker.sh
+
+# Create and run a Docker container named 'webserver' from the 'ubuntu' image,
+# mapping host port 80 to container port 80, and start an interactive shell (-it)
+sudo docker container run -d --publish 80:80 --name webserver -it ubuntu
+
+# Execute an interactive shell within the 'webserver' container
+sudo docker container exec -it webserver bash
+
+# Update package lists
+apt update
+
+# Install the Apache web server
+apt-get install -y apache2
+
+# Start the Apache service
+service apache2 start
+
+# Install the nano text editor
+apt install nano
+
+# Navigate to the web server's HTML directory
+cd /var/www/html
+
+# Remove the default index.html file
+rm index.html
+
+# Edit/create a new HTML file named 'xexconsultancy.html' using the nano text editor
+nano xexconsultancy.html
+
+# Paste the HTML content for the website into the 'xexconsultancy.html' file
+
+# Commit the changes made in the container to create a new Docker image
+sudo docker commit webserver
+
+# List available Docker images
+sudo docker image ls
+
+# Log in to your Docker Hub account (authentication required)
+sudo docker login
+
+# Push the newly created Docker image to your Docker Hub repository (replace 'xexconsultancy/imagetest' with your repository name)
+sudo docker push xexconsultancy/imagetest
