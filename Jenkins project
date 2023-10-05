@@ -1,0 +1,8 @@
+sudo snap install docker
+sudo docker pull jenkins/jenkins:jdk11
+sudo docker container ls
+sudo docker exec eb9739b83eee cat /var/jenkins_home/secrets/initialAdminPassword
+sudo docker container run -d -p 8080:8080 -v jenkins-data:/var/jenkins_home --restart=on-failure --name newxexconsulancyjenkins jenkins/jenkins:jdk11
+sudo docker stop newxexconsulancyjenkins
+sudo docker container prune
+sudo docker volume prune
